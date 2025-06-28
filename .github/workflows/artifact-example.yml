@@ -1,1 +1,37 @@
+name: Artifact Practice
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Generate file
+        run: |
+          echo "Привет, это артефакт!" > message.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: example-message
+          path: message.txt
+
+  process:
+    runs-on: ubuntu-latest
+    needs: prepare
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: example-message
+
+      - name: Read artifact file
+        run: |
+          echo "Содержимое файла message.txt:"
+          cat message.txt
