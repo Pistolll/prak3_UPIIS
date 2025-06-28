@@ -17,7 +17,7 @@ jobs:
           echo "Привет, это артефакт!" > message.txt
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: example-message
           path: message.txt
@@ -27,7 +27,7 @@ jobs:
     needs: prepare
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: example-message
 
